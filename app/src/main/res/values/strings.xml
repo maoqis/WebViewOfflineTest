@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">WebViewOfflineTest</string>
+    <string name="btn_relative_path_load">相对路径加载离线html、css，js文件</string>
+    <string name="btn_absolute_path_load"><![CDATA[webView 拦截url,加载对应的本地css、js文件]]></string>
+</resources>
