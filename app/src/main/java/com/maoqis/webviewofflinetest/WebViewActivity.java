@@ -11,6 +11,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 
+import com.maoqis.webviewofflinetest.tools.SharedPreferenceUtils;
 import com.maoqis.webviewofflinetest.tools.WebViewPreloadHolder;
 import com.orhanobut.logger.Logger;
 
@@ -27,7 +28,7 @@ public class WebViewActivity extends Activity {
 
     long startLoadUrlTime;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+        protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview);
         assignViews();
@@ -74,9 +75,12 @@ public class WebViewActivity extends Activity {
                 //这里为页面加载完成时机
                 Log.d(TAG, "onPageFinished() called with: view = [" + view + "], url = [" + url + "]");
                 long end = System.currentTimeMillis();
-                Log.d(TAG, "onPageFinished: 开始加载时间毫秒数:"+ startLoadUrlTime +
+                boolean isPreLoad = SharedPreferenceUtils.getInstance().getBoolean(WebViewPreloadHolder.PRELOAD_ON_OFF, false);
+                Log.d(TAG, "onPageFinished: "+
+                        " 是否开启了预创建:"+ isPreLoad +
+                        " 开始加载时间毫秒数:"+ startLoadUrlTime +
                         " 页面加载完成毫秒数："+ end +
-                        "间隔时间:"+(end -startLoadUrlTime));
+                        " 间隔时间:"+(end -startLoadUrlTime));
             }
         });
 
