@@ -1,38 +1,44 @@
-# WebViewOfflineTest
-两种webview离线包方案比较
-方案一：
-html中的css，js等资源连接为相对路径，相对于hmtl目录的路径。
 
 
-离线资源包结构
-testAbsolute
-  css
-    example.css
-  js
-    example.js
-  ExampleApp.html
+两种webview离线包方案比较<br>
+====
+
+方案一：html中的css，js等资源链接为相对路径，相对于hmtl目录的路径。<br>
+===
+
+离线资源包结构<br>
+==
+testAbsolute<br>
+  css<br>
+    example.css<br>
+  js<br>
+    example.js<br>
+  ExampleApp.html<br>
   
   
-ExampleApp.html文件中引用连接相对路径，css/example.css
-<link rel="stylesheet" href="css/example.css">
-
+ExampleApp.html文件中引用链接相对路径，css/example.css<br>
+==
+```
+<link rel="stylesheet" href="css/example.css"><br>
+```
   
   
 
 
 
 
-方案二：
-html中的资源连接为https等协议开头的url绝对路径。
+方案二：html中的资源连接为https等协议开头的url绝对路径。
+===
 eg：https://xxx.xxx.xxx/testAbsolute/js/example.js
 
 离线资源包结构
-testRelative
-  css
-    example.css
-  js
-    example.js
-  ExampleApp.html
+==
+testRelative<br>
+  css<br>
+    example.css<br>
+  js<br>
+    example.js<br>
+  ExampleApp.html<br>
 
 
 
