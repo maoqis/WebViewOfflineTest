@@ -44,6 +44,12 @@ testRelative
     example.js
   ExampleApp.html
 ```
+页面加载完成时间输出地方
+===
+WebActivity.onCreate方法中创建的WebViewClient的onPageFinished方法。
+```
+D/WebViewActivity: onPageFinished:  是否开启了预创建:true 开始加载时间毫秒数:1546762190947 页面加载完成毫秒数：1546762191052 间隔时间:105
+```
 
 
 
