@@ -36,13 +36,14 @@ eg：https://xxx.xxx.xxx/testAbsolute/js/example.js
 
 离线资源包结构
 ==
-testRelative<br>
-  css<br>
-    example.css<br>
-  js<br>
-    example.js<br>
-  ExampleApp.html<br>
-
+```
+testRelative
+  css
+    example.css
+  js
+    example.js
+  ExampleApp.html
+```
 
 
 
