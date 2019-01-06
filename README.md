@@ -30,7 +30,7 @@ ExampleApp.html文件中引用链接相对路径，css/example.css<br>
 
 
 
-方案二：html中的资源连接为https等协议开头的url绝对路径。
+方案二：html中的资源链接为https等协议开头的url绝对路径。
 ===
 eg：https://xxx.xxx.xxx/testAbsolute/js/example.js
 
