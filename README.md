@@ -19,7 +19,7 @@ testAbsolute<br>
 ExampleApp.html文件中引用链接相对路径，css/example.css<br>
 ==
 ```
-<link rel="stylesheet" href="css/example.css"><br>
+<link rel="stylesheet" href="css/example.css">
 ```
   
   
