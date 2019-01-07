@@ -69,7 +69,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startWebActivity("file:///android_asset/testRelative/ExampleApp.html",false);
                 break;
             case R.id.btn_absolute:
-                startWebActivity("file:///android_asset/testAbsolute/ExampleApp.html",true);
+//                startWebActivity("file:///android_asset/testAbsolute/ExampleApp.html",true);
+                startWebActivity("http://live.ent.163.com/special/firstcharge",true);
 
                 break;
             default:
