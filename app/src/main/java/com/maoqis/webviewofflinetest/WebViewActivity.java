@@ -62,11 +62,17 @@ public class WebViewActivity extends Activity {
                         //文件流，暂时使用 assets下文件，如果要加载sdk文件，输入流改为文件流即可。
                         InputStream is = assets.open(localPath);
                         response = new WebResourceResponse(mimeType, "UTF-8", is);
+                        return response;
+
                     } catch (IOException e) {
                         e.printStackTrace();
+                       return super.shouldInterceptRequest(view,url);
                     }
+                }else {
+                    return super.shouldInterceptRequest(view,url);
                 }
-                return response;
+
+
             }
 
             @Override
