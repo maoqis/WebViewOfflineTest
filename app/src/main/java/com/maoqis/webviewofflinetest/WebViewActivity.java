@@ -108,7 +108,10 @@ public class WebViewActivity extends Activity {
 
         return url;
     }
-
+//    <type extension=".png" mimetype="image/png" />
+//    <type extension=".gif" mimetype="image/gif" />
+//    <type extension=".jpg" mimetype="image/jpeg" />
+//    <type extension=".jpeg" mimetype="image/jpeg" />
     private String getExtentionName(String localPath, String mimeType) {
         String extentionName = "";
         if (localPath.length() > 0 && localPath.lastIndexOf(".") > -1) {
@@ -124,6 +127,19 @@ public class WebViewActivity extends Activity {
             case ".css":
                 mimeType = "text/css";
                 break;
+            case ".png":
+                mimeType = "image/png";
+                break;
+            case ".gif":
+                mimeType = "image/gif";
+                break;
+            case ".jpg":
+                mimeType = "image/jpg";
+                break;
+            case ".jpeg":
+                mimeType = "image/jpeg";
+                break;
+
         }
         return mimeType;
     }
