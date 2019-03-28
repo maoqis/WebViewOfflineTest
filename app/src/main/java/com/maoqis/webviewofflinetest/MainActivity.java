@@ -1,12 +1,10 @@
 package com.maoqis.webviewofflinetest;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -20,11 +18,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CheckBox mBox1;
     private Button mBtnRelative;
     private Button mBtnAbsolute;
+    private Button mBtnOnline;
 
     private void assignViews() {
         mBox1 = (CheckBox) findViewById(R.id.box1);
         mBtnRelative = (Button) findViewById(R.id.btn_relative);
         mBtnAbsolute = (Button) findViewById(R.id.btn_absolute);
+        mBtnOnline = (Button) findViewById(R.id.btn_online);
     }
 
 
@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mBtnRelative.setOnClickListener(this);
         mBtnAbsolute.setOnClickListener(this);
+        mBtnOnline.setOnClickListener(this);
 
         preloadConfig();
 
@@ -66,11 +67,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_relative:
-                startWebActivity("file:///android_asset/testRelative/ExampleApp.html",false);
+                startWebActivity("file:///android_asset/mint/ExampleApp-local.html",false);
                 break;
             case R.id.btn_absolute:
-//                startWebActivity("file:///android_asset/testAbsolute/ExampleApp.html",true);
-                startWebActivity("http://live.ent.163.com/special/firstcharge",true);
+                startWebActivity("https://www.163.com/mint/ExampleApp.html",true);
+
+                break;
+            case R.id.btn_online:
+                startWebActivity("https://live.ent.163.com/special/firstcharge/",false);
 
                 break;
             default:

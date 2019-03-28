@@ -5,7 +5,6 @@ import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ViewGroup;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -14,10 +13,7 @@ import android.widget.FrameLayout;
 
 import com.maoqis.webviewofflinetest.tools.SharedPreferenceUtils;
 import com.maoqis.webviewofflinetest.tools.WebViewPreloadHolder;
-import com.orhanobut.logger.Logger;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -63,8 +59,6 @@ public class WebViewActivity extends Activity {
 //关闭webview中缓存
         webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
-
-
         String url = getIntent().getStringExtra("url");
 
         final Boolean isIntercept = getIntent().getBooleanExtra("isIntercept", false);
@@ -72,7 +66,6 @@ public class WebViewActivity extends Activity {
 
         mWbContent.setWebViewClient(new WebViewClient() {
             public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
-
                 if (!isIntercept) {//不做拦截
                     return super.shouldInterceptRequest(view,url);
                 }
@@ -82,7 +75,7 @@ public class WebViewActivity extends Activity {
 
                 //转换 为assets目录下路径，前缀为 https://xxx.xxx.xxx/时做拦截
                 String localPath = getLocalPath(url);
-                Logger.d(TAG, "shouldInterceptRequest called with: " + "view = [" + view + "], url = [" + url + "]" + ", localPath = [" + localPath + "]");
+                Log.d(TAG, "shouldInterceptRequest called with: " + "view = [" + view + "], url = [" + url + "]" + ", localPath = [" + localPath + "]");
 
 
                 if (localPath != null) {
@@ -122,7 +115,6 @@ public class WebViewActivity extends Activity {
             }
         });
 
-
         mWbContent.loadUrl(url);
         startLoadUrlTime = System.currentTimeMillis();
 
@@ -138,10 +130,10 @@ public class WebViewActivity extends Activity {
         if (url == null) {
             return null;
         }
-        if (url.startsWith("https://xxx.xxx.xxx/")) {
-            url = url.replace("https://xxx.xxx.xxx/", "");
+        if (url.startsWith("https://www.163.com")) {
+            url = url.replace("https://www.163.com/", "");
         } else {
-            return null;
+           return null;
         }
 
         return url;
