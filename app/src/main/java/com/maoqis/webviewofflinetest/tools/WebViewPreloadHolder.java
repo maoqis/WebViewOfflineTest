@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.MutableContextWrapper;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.webkit.WebView;
 
 
 import com.maoqis.webviewofflinetest.BuildConfig;
 import com.maoqis.webviewofflinetest.TestApplication;
+import com.maoqis.webviewofflinetest.MyWebView;
 import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.LinkedBlockingQueue;
@@ -17,7 +19,7 @@ public class WebViewPreloadHolder {
     private static final String TAG = "WebViewPreloadHolder";
     public static final int JELLY_BEAN_MR_2 = Build.VERSION_CODES.JELLY_BEAN_MR2;
     public static final String PRELOAD_ON_OFF = "preload_on_off";
-    private LinkedBlockingQueue<WebView> mViews = new LinkedBlockingQueue<>(1);
+    private LinkedBlockingQueue<MyWebView> mViews = new LinkedBlockingQueue<>(1);
 
 
     private static class SingletonHolder {
@@ -59,8 +61,8 @@ public class WebViewPreloadHolder {
      * @param activity
      * @return
      */
-    public WebView getWebView(Activity activity) {
-        WebView webView;
+    public MyWebView getWebView(Activity activity) {
+        MyWebView webView;
         if (isDoPreLoad()) { // 4.3以上采用webview预加载
             Logger.i(TAG, "getWebView() called with: " + "Webview use preload!");
             webView = WebViewPreloadHolder.getInstance().getWebViewFromCache();
@@ -79,11 +81,11 @@ public class WebViewPreloadHolder {
      * 取预存的webview，没有的话创建
      * @return
      */
-    private synchronized WebView getWebViewFromCache() {
+    private synchronized MyWebView getWebViewFromCache() {
         if (mViews.size() == 0) {
             mViews.add(instanceWebView(TestApplication.getAppContext()));
         }
-        WebView webView = mViews.poll();
+        MyWebView webView = mViews.poll();
         mViews.add(instanceWebView(TestApplication.getAppContext()));
         return webView;
     }
@@ -94,9 +96,10 @@ public class WebViewPreloadHolder {
      * @param context
      * @return
      */
-    private WebView instanceWebView(Context context) {
-        WebView WebView = new WebView(new MutableContextWrapper(context));
-        return WebView;
+    private MyWebView instanceWebView(Context context) {
+        MyWebView webView = new MyWebView(new MutableContextWrapper(context));
+        webView.setWebViewConfig("about:blank",true,webView);//设置webView配置，拦截器以及加载空白页面
+        return webView;
     }
 
 
