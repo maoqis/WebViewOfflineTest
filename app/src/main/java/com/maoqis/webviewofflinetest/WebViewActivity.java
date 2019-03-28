@@ -1,21 +1,11 @@
 package com.maoqis.webviewofflinetest;
 
 import android.app.Activity;
-import android.content.res.AssetManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ViewGroup;
-import android.webkit.WebResourceResponse;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 
-import com.maoqis.webviewofflinetest.tools.SharedPreferenceUtils;
 import com.maoqis.webviewofflinetest.tools.WebViewPreloadHolder;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 public class WebViewActivity extends Activity {
     private static final String TAG = "WebViewActivity";
@@ -28,30 +18,36 @@ public class WebViewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview);
         String url = getIntent().getStringExtra("url");
+        String tag = getIntent().getStringExtra("tag");
 
         final Boolean isIntercept = getIntent().getBooleanExtra("isIntercept", false);
 
 
 
-        assignViews();
+        assignViews(tag);
 
 
         mWbContent.startLoadUrlTime = System.currentTimeMillis();
         mWbContent.setIntercept(isIntercept);
         MyWebView mWbContent = this.mWbContent;
-        mWbContent.loadUrl(url);
-
-
+        if (!tag.equals("3")) {
+            mWbContent.loadUrl(url);
+        }
 
 
     }
 
 
 
-    private void assignViews() {
+    private void assignViews(String tag) {
         mFlRoot = (FrameLayout) findViewById(R.id.fl_root);
         //加载预创建的WebView，并新建一个预备WebView
-        mWbContent = WebViewPreloadHolder.getInstance().getWebView(this);
+        if (!tag.equals("3")) {
+            mWbContent = WebViewPreloadHolder.getInstance().getWebView(this);
+        } else {
+            mWbContent = WebViewPreloadHolder.getInstance().getPreloadWebView(this);
+        }
+
 
         mFlRoot.addView(mWbContent,
                 new FrameLayout.LayoutParams(

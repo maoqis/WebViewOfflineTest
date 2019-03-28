@@ -131,7 +131,7 @@ public class MyWebView extends WebView {
             }
         });
 
-        mWbContent.loadUrl(url);
+//        mWbContent.loadUrl(url);
         startLoadUrlTime = System.currentTimeMillis();
     }
 

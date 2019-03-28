@@ -4,13 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.MutableContextWrapper;
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.webkit.WebView;
-
 
 import com.maoqis.webviewofflinetest.BuildConfig;
-import com.maoqis.webviewofflinetest.TestApplication;
 import com.maoqis.webviewofflinetest.MyWebView;
+import com.maoqis.webviewofflinetest.TestApplication;
 import com.orhanobut.logger.Logger;
 
 import java.util.concurrent.LinkedBlockingQueue;
@@ -37,15 +34,10 @@ public class WebViewPreloadHolder {
     /**
      * 创建预存的WebView
      */
-    public synchronized void newNextWebView() {
-
-        if (mViews.size() > 0) {
-            return;
-        }
-        if (isDoPreLoad()) {
-            mViews.add(instanceWebView(TestApplication.getAppContext()));
-        }
-
+    public synchronized void createPreloadWebView() {
+        MyWebView mWbContent = instancePreloadWebView(TestApplication.getAppContext());
+        mWbContent.loadUrl("https://www.163.com/mint/ExampleApp.html");
+        mViews.add(mWbContent);
     }
 
     public static boolean isDoPreLoad() {
@@ -63,13 +55,13 @@ public class WebViewPreloadHolder {
      */
     public MyWebView getWebView(Activity activity) {
         MyWebView webView;
-        if (isDoPreLoad()) { // 4.3以上采用webview预加载
-            Logger.i(TAG, "getWebView() called with: " + "Webview use preload!");
-            webView = WebViewPreloadHolder.getInstance().getWebViewFromCache();
-        } else {//4.3 以下 系统创建webview传appclication可能会有适配问题。禁用webview预加载
+//        if (isDoPreLoad()) { // 4.3以上采用webview预加载
+//            Logger.i(TAG, "getWebView() called with: " + "Webview use preload!");
+//            webView = WebViewPreloadHolder.getInstance().getWebViewFromCache();
+//        } else {//4.3 以下 系统创建webview传appclication可能会有适配问题。禁用webview预加载
             Logger.i(TAG, "getWebView() called with: " + "Webview not use preload!");
             webView = WebViewPreloadHolder.getInstance().instanceWebView(activity);
-        }
+//        }
         if (webView.getContext() instanceof MutableContextWrapper) {
             MutableContextWrapper mutableContextWrapper = (MutableContextWrapper) webView.getContext();
             mutableContextWrapper.setBaseContext(activity);
@@ -81,14 +73,14 @@ public class WebViewPreloadHolder {
      * 取预存的webview，没有的话创建
      * @return
      */
-    private synchronized MyWebView getWebViewFromCache() {
-        if (mViews.size() == 0) {
-            mViews.add(instanceWebView(TestApplication.getAppContext()));
-        }
-        MyWebView webView = mViews.poll();
-        mViews.add(instanceWebView(TestApplication.getAppContext()));
-        return webView;
-    }
+//    private synchronized MyWebView getWebViewFromCache() {
+//        if (mViews.size() == 0) {
+//            mViews.add(instanceWebView(TestApplication.getAppContext()));
+//        }
+//        MyWebView webView = mViews.poll();
+//        mViews.add(instanceWebView(TestApplication.getAppContext()));
+//        return webView;
+//    }
 
     /**
      * 创建webView,设置webView拦截器,以及加载空白页面
@@ -98,9 +90,26 @@ public class WebViewPreloadHolder {
      */
     private MyWebView instanceWebView(Context context) {
         MyWebView webView = new MyWebView(new MutableContextWrapper(context));
-        webView.setWebViewConfig("about:blank",true,webView);//设置webView配置，拦截器以及加载空白页面
+        webView.setWebViewConfig("about:blank",true, webView);//设置webView配置，拦截器以及加载空白页面
         return webView;
     }
 
+
+
+    private MyWebView instancePreloadWebView(Context context) {
+        MyWebView webView = new MyWebView(new MutableContextWrapper(context));
+        webView.setWebViewConfig("about:blank",true, webView);//设置webView配置，拦截器以及加载空白页面
+        return webView;
+    }
+
+
+    public MyWebView getPreloadWebView(Activity activity) {
+        MyWebView webView = mViews.poll();
+        if (webView.getContext() instanceof MutableContextWrapper) {
+            MutableContextWrapper mutableContextWrapper = (MutableContextWrapper) webView.getContext();
+            mutableContextWrapper.setBaseContext(activity);
+        }
+        return webView;
+    }
 
 }

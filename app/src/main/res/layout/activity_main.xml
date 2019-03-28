@@ -31,6 +31,6 @@
     <Button
         android:id="@+id/btn_online"
         android:layout_width="match_parent"
-        android:text="请求线上资源"
+        android:text="打开预加载页面"
         android:layout_height="wrap_content" />
 </LinearLayout>

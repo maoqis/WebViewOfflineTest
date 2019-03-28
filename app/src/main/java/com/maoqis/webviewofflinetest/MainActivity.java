@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         //根据与加载开关，判断是否提前创建WebView。页面使用之前创建的的webView后会再创建一个新的webView。
 
-        WebViewPreloadHolder.getInstance().newNextWebView();
+        WebViewPreloadHolder.getInstance().createPreloadWebView();
     }
 
 
@@ -67,14 +67,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_relative:
-                startWebActivity("file:///android_asset/mint/ExampleApp-local.html",false);
+                startWebActivity("file:///android_asset/mint/ExampleApp-local.html",false, "1");
                 break;
             case R.id.btn_absolute:
-                startWebActivity("https://www.163.com/mint/ExampleApp.html",true);
+                startWebActivity("https://www.163.com/mint/ExampleApp.html",true, "2");
 
                 break;
             case R.id.btn_online:
-                startWebActivity("https://live.ent.163.com/special/firstcharge/",false);
+                startWebActivity("https://live.ent.163.com/special/firstcharge/",true, "3");
 
                 break;
             default:
@@ -87,10 +87,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * @param url
      * @param isIntercept true，拦截url转换本地处理，false，本地webview直接加载页面中的本地css，js文件
      */
-    private void startWebActivity(String url,boolean isIntercept) {
+    private void startWebActivity(String url,boolean isIntercept, String tag) {
         Intent intent = new Intent(this, WebViewActivity.class);
         intent.putExtra("url", url);
         intent.putExtra("isIntercept",isIntercept);
+        intent.putExtra("tag",tag);
         startActivity(intent);
     }
 
